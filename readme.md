@@ -1,3 +1,5 @@
+![CMPS350 Social Media Platform](assets/images/gigapixel-qugeeks-cover.psd.png)
+
 # CMPS350 Social Media Platform
 
 This is the GitHub repo for our CMPS350 web dev course at QU.
