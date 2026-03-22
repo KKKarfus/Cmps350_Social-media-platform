@@ -1,0 +1,262 @@
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4dec9;
+    padding: 32px 16px;
+}
+
+.login-card,
+.register-card {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+}
+
+/* -- shared header -- */
+
+.auth-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.auth-logo {
+    display: block;
+    height: auto;
+}
+
+/* ---------- login page ---------- */
+
+.auth-page>.auth-header .auth-logo {
+    width: 190px;
+    max-width: 100%;
+}
+
+.login-card {
+    max-width: 420px;
+    padding: 34px 26px 28px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.login-form label {
+    margin-bottom: 8px;
+    color: #a8581d;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.login-form input {
+    width: 100%;
+    height: 44px;
+    border: 0px;
+    border-radius: 15px;
+    background-color: #f3e6db;
+    color: #3a2a22;
+    font-size: 0.95rem;
+    padding: 0 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-form input::placeholder {
+    color: #bfa99a;
+}
+
+.login-form input:focus {
+    box-shadow: 0 0 0 3px #f3e6db;
+}
+
+.login-form button {
+    width: 100%;
+    height: 52px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 12px;
+    background-color: #f57c00;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.login-form button:hover {
+    background-color: #df6f00;
+}
+
+.login-form button:active {
+    transform: translateY(1px);
+}
+
+/*-- register page --*/
+
+.register-card {
+    max-width: 420px;
+    padding: 18px 24px 26px;
+}
+
+.register-card .auth-header {
+    align-items: flex-start;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.auth-intro {
+    margin-bottom: 20px;
+}
+
+.auth-intro h1 {
+    margin: 0 0 8px;
+    color: #24170f;
+    font-size: 2rem;
+    line-height: 1.15;
+    font-weight: 700;
+}
+
+.auth-description {
+    margin: 0;
+    color: #6f5b4d;
+    font-size: 0.95rem;
+    line-height: 1.55;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-form .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 14px;
+}
+
+.register-form label {
+    margin-bottom: 8px;
+    color: #b06a2f;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.register-form input {
+    width: 100%;
+    height: 42px;
+    border: 1px solid #ecd9ca;
+    border-radius: 12px;
+    background-color: #f4e8dd;
+    color: #3a2a22;
+    font-size: 0.95rem;
+    padding: 0 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.register-form input::placeholder {
+    color: #d3b8a5;
+}
+
+.register-form input:focus {
+    border-color: #eb7b21;
+    box-shadow: 0 0 0 3px rgba(235, 123, 33, 0.12);
+}
+
+.register-form button {
+    width: 100%;
+    height: 52px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 12px;
+    background-color: #ff7a1a;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.register-form button:hover {
+    background-color: #e66f17;
+}
+
+.register-form button:active {
+    transform: translateY(1px);
+}
+
+/* -- shared small elements -- */
+
+.form-error {
+    min-height: 20px;
+    margin: 0 0 6px;
+    color: #c0392b;
+    font-size: 0.88rem;
+}
+
+.register {
+    margin: 14px 0 0;
+    text-align: center;
+    color: #5b4638;
+    font-size: 0.95rem;
+}
+
+.register a {
+    color: #f57c00;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register a:hover {
+    text-decoration: underline;
+}
+
+/* -- responsive -- */
+
+@media (max-width: 480px) {
+    .auth-page {
+        padding: 20px 12px;
+    }
+
+    .login-card,
+    .register-card {
+        border-radius: 16px;
+    }
+
+    .login-card {
+        padding: 28px 20px 24px;
+    }
+
+    .register-card {
+        padding: 18px 18px 22px;
+    }
+
+    .auth-page>.auth-header .auth-logo {
+        width: 150px;
+    }
+
+    .auth-intro h1 {
+        font-size: 1.65rem;
+    }
+
+    .auth-description {
+        font-size: 0.9rem;
+    }
+}
