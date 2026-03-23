@@ -1,0 +1,285 @@
+/* ========== Layout ========== */
+
+body {
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+    background-color: #fdf6f0;
+}
+
+/* ========== Sidebar ========== */
+
+.sidebar {
+    width: 200px;
+    min-height: 100vh;
+    background-color: #fdf6f0;
+    border-right: 1px solid #f0ddd0;
+    padding: 32px 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.sidebar-brand {
+    margin-bottom: 40px;
+}
+
+.sidebar-title {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #2a1a0e;
+}
+
+.sidebar-subtitle {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #a08672;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #5b4638;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-item:hover {
+    background-color: #f5e3d4;
+    color: #3a2a1e;
+}
+
+.nav-item.active {
+    background-color: #fce8d8;
+    color: #e86f00;
+    font-weight: 600;
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* ========== Main Area ========== */
+
+.explore-main {
+    flex: 1;
+    margin-left: 200px;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    min-height: 100vh;
+}
+
+/* ========== Top Bar ========== */
+
+.explore-topbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 32px;
+    border-bottom: 1px solid #f0e4da;
+}
+
+.topbar-logo {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #e86f00;
+    font-style: italic;
+}
+
+/* ========== Content ========== */
+
+.explore-content {
+    padding: 40px 48px 60px;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.explore-header {
+    margin-bottom: 36px;
+}
+
+.explore-title {
+    margin: 0 0 10px;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #2a1a0e;
+    font-style: italic;
+}
+
+.explore-title .highlight {
+    color: #e86f00;
+}
+
+.explore-description {
+    margin: 0;
+    color: #7a6555;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 560px;
+}
+
+/* ========== Profile Grid ========== */
+
+.profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* ========== Profile Card ========== */
+
+.profile-card {
+    background-color: #ffffff;
+    border: 1px solid #f0e4da;
+    border-radius: 16px;
+    padding: 28px 20px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.profile-card:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+    transform: translateY(-2px);
+}
+
+.profile-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 14px;
+    border: 3px solid #f5dcc8;
+    box-sizing: border-box;
+}
+
+.profile-name {
+    margin: 0 0 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2a1a0e;
+}
+
+.profile-bio {
+    margin: 0 0 16px;
+    font-size: 0.85rem;
+    color: #8a7565;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.5em;
+}
+
+.follow-btn {
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 22px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.follow-btn.follow {
+    background-color: transparent;
+    color: #e86f00;
+    border: 2px solid #e86f00;
+}
+
+.follow-btn.follow:hover {
+    background-color: #fff5ec;
+}
+
+.follow-btn.following {
+    background-color: #e86f00;
+    color: #ffffff;
+    border: 2px solid #e86f00;
+}
+
+.follow-btn.following:hover {
+    background-color: #d46300;
+    border-color: #d46300;
+}
+
+/* ========== Responsive ========== */
+
+@media (max-width: 960px) {
+    .profiles-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .explore-content {
+        padding: 32px 28px 48px;
+    }
+}
+
+@media (max-width: 700px) {
+    .sidebar {
+        width: 60px;
+        padding: 24px 8px;
+        align-items: center;
+    }
+
+    .sidebar-brand {
+        display: none;
+    }
+
+    .nav-item {
+        justify-content: center;
+        padding: 10px;
+        font-size: 0;
+    }
+
+    .nav-icon {
+        width: 22px;
+        height: 22px;
+    }
+
+    .explore-main {
+        margin-left: 60px;
+    }
+}
+
+@media (max-width: 540px) {
+    .profiles-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .explore-title {
+        font-size: 1.7rem;
+    }
+}
