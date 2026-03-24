@@ -17,7 +17,7 @@
     box-sizing: border-box;
 }
 
-/* -- shared header -- */
+
 
 .auth-header {
     display: flex;
@@ -30,8 +30,6 @@
     display: block;
     height: auto;
 }
-
-/* ---------- login page ---------- */
 
 .auth-page>.auth-header .auth-logo {
     width: 190px;

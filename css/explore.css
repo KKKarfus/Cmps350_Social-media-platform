@@ -7,7 +7,7 @@ body {
     background-color: #fdf6f0;
 }
 
-/* ========== Sidebar ========== */
+
 
 .sidebar {
     width: 200px;
@@ -235,7 +235,6 @@ body {
     border-color: #d46300;
 }
 
-/* ========== Responsive ========== */
 
 @media (max-width: 960px) {
     .profiles-grid {

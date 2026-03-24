@@ -2,5 +2,40 @@
 
 html {
     font-family: 'EB Garamond', serif;
-    background-color: #f4dec9;
+    background-color: var(--color-bg);
+}
+
+
+:root {
+    --color-bg:      #FFE2C9;
+    --color-bg-accent : #fdf6f0;
+    --color-btn-highlight: #fc9403;
+    --color-txt-feild: #f3e6db;
+    --color-border: #f0ddd0;
+    --color-primary: #FC7303;
+    --color-blue:    #00A2FC;
+    --color-text:    #2C1810;
+    --color-muted:   #9C6B3C;
+    --color-grey : #242424;
+    --font-system:   'EB Garamond', serif;
+    --font-content:  'Lato', sans-serif;
+    --radius:        14px;
+    --shadow:        0 2px 12px rgba(252, 115, 3, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-bg);
+    font-family: var(--font-system);
+    color: var(--color-text);
+    min-height: 100vh;
+}
+
+.hidden {
+    display: none !important;
 }
