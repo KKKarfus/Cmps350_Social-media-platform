@@ -7,13 +7,84 @@
     <title>QUGeeks | Feed</title>
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/feed.css">
-    <script src="js/utils.js"></script>
-    <script src="js/storage.js"></script>
+    <script src="js/utils.js" defer></script>
+    <script src="js/storage.js" defer></script>
     <script src="js/feed.js" defer></script>
+    <script src="https://kit.fontawesome.com/803ffdcfd8.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+    <div class="feed-layout">
+        <header class="topbar">
+            <img id="topbar-logo" src="assets/images/feed-topbar-logo.png" alt="feed-topbar-logo">
+        </header>
 
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <img src="assets/images/feed-sidebar-logo.png" alt="feed-sidebar-logo">
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="feed.html" class="nav-link active"><i class="fa-regular fa-house"></i>Home</a>
+                <a href="profile.html" class="nav-link"><i class="fa-regular fa-circle-user"></i>Profile</a>
+                <button id="logout-btn" class="nav-link" type="button"><i
+                        class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button>
+            </nav>
+        </aside>
+
+        <main class="feed-main">
+            <section class="composer-card">
+                <form id="post-form" class="post-form" novalidate>
+                    <div class="composer-top">
+                        <div id="composer-avatar" class="avatar-placeholder"></div>
+                        <textarea id="post-content" name="post-content" rows="4" placeholder="What's on your mind?"
+                            maxlength="280"></textarea>
+                    </div>
+
+                    <p id="post-error" class="form-error" aria-live="polite"></p>
+
+                    <div class="composer-actions">
+                        <div class="composer-icons">
+                            <i class="fa-regular fa-image"></i>
+                            <i class="fa-solid fa-paperclip"></i>
+                            <i class="fa-solid fa-hashtag"></i>
+                        </div>
+                        <button type="submit" class="post-btn">Post</button>
+                    </div>
+                </form>
+            </section>
+            <section class="posts-section">
+                <div id="posts-container" class="posts-container"></div>
+            </section>
+        </main>
+    </div>
+
+    <div id="post-modal" class="post-modal" hidden>
+        <div id="post-modal-overlay" class="post-modal-overlay"></div>
+        <section class="post-modal-card" aria-modal="true" aria-labelledby="post-modal-title" role="dialog">
+            <button id="close-post-modal" class="close-post-modal" type="button" aria-label="Close post detail">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="post-modal-header">
+                <div id="modal-post-avatar" class="post-avatar"></div>
+                <div class="post-meta">
+                    <p id="modal-post-username" class="post-username"></p>
+                    <p id="modal-post-date" class="post-date"></p>
+                </div>
+            </div>
+            <p id="post-modal-title" class="post-modal-content"></p>
+            <hr class="post-divider">
+            <div id="modal-comments" class="modal-comments"></div>
+            <form id="comment-form" class="comment-form" novalidate>
+                <p id="comment-error" class="form-error" aria-live="polite"></p>
+                <div class="comment-form-row">
+                    <textarea id="comment-content" name="comment-content" rows="3"
+                        placeholder="Add to the archive..."></textarea>
+                    <button type="submit" class="post-btn">Submit</button>
+                </div>
+            </form>
+        </section>
+    </div>
 </body>
 
 </html>

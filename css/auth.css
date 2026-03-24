@@ -103,7 +103,7 @@
     transform: translateY(1px);
 }
 
-/*-- register page --*/
+/* register page */
 
 .register-card {
     max-width: 420px;
@@ -200,7 +200,7 @@
     transform: translateY(1px);
 }
 
-/* -- shared small elements -- */
+/* shared small elements */
 
 .form-error {
     min-height: 20px;
@@ -226,7 +226,7 @@
     text-decoration: underline;
 }
 
-/* -- responsive -- */
+/* responsive */
 
 @media (max-width: 480px) {
     .auth-page {
