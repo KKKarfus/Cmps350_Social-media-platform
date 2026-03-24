@@ -8,7 +8,7 @@ This is the GitHub repo for our CMPS350 web dev course at QU.
 
 1. Abdulrahman Abushahba
 2. Eyad Nasser
-3. Tanvir Bin Abdulnoor
+3. Tanver Bin Abdulnoor
 4. Mohamed Abdelkarim
 
 Designed in Figma by Abdulrahman Abushahba
