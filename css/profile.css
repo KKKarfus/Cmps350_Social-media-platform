@@ -235,6 +235,16 @@ body {
     border: 1px solid var(--color-btn-highlight);
 }
 
+.profile-content {
+    padding: 0 2rem 2rem;
+}
+
+.no-posts-msg {
+    color: var(--color-muted);
+    padding: 1rem 0;
+    font-size: 0.95rem;
+}
+
 .profile-posts {
     margin-top: 1rem;
 }
@@ -341,10 +351,13 @@ body {
 
 .btn-close{
     background-color: transparent;
-    
+    border: none;
     padding: 0.5rem 1.5rem;
     border-radius: var(--radius);
     color: black;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
 }
 
 .btn-close:hover {
