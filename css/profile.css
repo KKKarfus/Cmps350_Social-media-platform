@@ -378,11 +378,57 @@ dialog:not([hidden]) {
     gap: 1rem;
 }
 
-.post-modal-overlay {
-    position: absolute;
-    inset: 0;
-    background-color: rgba(34, 21, 14, 0.42);
-    backdrop-filter: blur(4px);
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-overlay.hidden {
+    display: none !important;
+}
+.modal {
+    background-color: var(--color-bg-accent);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1001;
+}
+
+.modal-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-close {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--color-muted);
+    cursor: pointer;
+    transition: color 0.2s ease;
+    line-height: 1;
+}
+
+.btn-close:hover {
+    color: var(--color-primary);
 }
 
 .post-modal {
