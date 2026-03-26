@@ -49,14 +49,16 @@ function createProfileCard(user, currentUser) {
     const following = isFollowing(currentUser, user.id);
 
     card.innerHTML =
-        '<div class="profile-avatar" style="background-color: ' + avatarColor + '">' +
-            initials +
-        '</div>' +
-        '<h3 class="profile-name">' + user.username + '</h3>' +
-        '<p class="profile-bio">' + user.bio + '</p>' +
-        '<button class="follow-btn ' + (following ? 'following' : 'follow') + '" data-user-id="' + user.id + '">' +
-            (following ? 'Following' : 'Follow') +
-        '</button>';
+    '<a href="profile.html?id=' + user.id + '" class="profile-card-link">' +
+    '<div class="profile-avatar" style="background-color: ' + avatarColor + '">' +
+    initials +
+    '</div>' +
+    '<h3 class="profile-name">' + user.username + '</h3>' +
+    '<p class="profile-bio">' + user.bio + '</p>' +
+    '</a>' +
+    '<button class="follow-btn ' + (following ? 'following' : 'follow') + '" data-user-id="' + user.id + '">' +
+    (following ? 'Following' : 'Follow') +
+    '</button>';
 
     const btn = card.querySelector(".follow-btn");
     btn.addEventListener("click", function () {

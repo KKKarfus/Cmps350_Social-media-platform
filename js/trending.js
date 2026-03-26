@@ -60,13 +60,16 @@ function createTrendingRow(user, rank, followerCount, currentUser) {
     avatar.className = "trending-avatar";
     avatar.style.backgroundColor = avatarColor;
     avatar.textContent = initials;
-    row.appendChild(avatar);
+    const avatarLink = document.createElement("a");
+    avatarLink.href = "profile.html?id=" + user.id;
+    avatarLink.appendChild(avatar);
+    row.appendChild(avatarLink);
 
     const info = document.createElement("div");
     info.className = "trending-info";
     info.innerHTML =
-        '<h3 class="trending-name">' + user.username + '</h3>' +
-        '<p class="trending-bio">' + user.bio + '</p>';
+    '<a href="profile.html?id=' + user.id + '" class="profile-card-link"><h3 class="trending-name">' + user.username + '</h3></a>' +
+    '<p class="trending-bio">' + user.bio + '</p>';
     row.appendChild(info);
 
     const countEl = document.createElement("div");

@@ -84,7 +84,7 @@ function createPostCard(post) {
                 <div class="post-author">
                     <div class="post-avatar">${getInitials(author.username)}</div>
                     <div class="post-meta">
-                        <p class="post-username">${escapeHtml(author.username)}</p>
+                        <a href="profile.html?id=${author.id}" class="post-username">${escapeHtml(author.username)}</a>
                         <p class="post-date">${formatDate(post.createdAt)}</p>
                     </div>
                 </div>
@@ -131,7 +131,7 @@ function createCommentItem(comment) {
             <div class="post-avatar comment-avatar">${getInitials(author.username)}</div>
             <div class="comment-body">
                 <div class="comment-meta">
-                    <p class="post-username">${escapeHtml(author.username)}</p>
+                    <a href="profile.html?id=${author.id}" class="post-username">${escapeHtml(author.username)}</a>
                     <p class="post-date">${formatDate(comment.createdAt)}</p>
                 </div>
                 <p class="comment-content">${escapeHtml(comment.content)}</p>
@@ -360,7 +360,11 @@ function handleDocumentKeydown(event) {
         closePostModal();
     }
 }
-
+document.addEventListener("DOMContentLoaded", () => {
+    if (document.getElementById("post-form")) {
+        initializeFeed();
+    }
+});
 function initializeFeed() {
     protectFeedPage();
     setComposerAvatar();
@@ -400,4 +404,4 @@ function initializeFeed() {
     document.addEventListener("keydown", handleDocumentKeydown);
 }
 
-document.addEventListener("DOMContentLoaded", initializeFeed);
+

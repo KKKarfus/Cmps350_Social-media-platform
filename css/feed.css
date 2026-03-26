@@ -8,6 +8,16 @@ body.modal-open {
     overflow: hidden;
 }
 
+.post-username {
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.post-username:hover {
+    color: var(--color-primary);
+}
+
 .feed-layout {
     min-height: 100vh;
     display: grid;
@@ -20,20 +30,28 @@ body.modal-open {
 
 /* topbar */
 
-.topbar {
-    height: 40px;
+.feed-topbar {
     grid-area: topbar;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    padding: 18px 32px;
+    border-bottom: 1px solid #f0e4da;
     background-color: #FFF8F5;
-    border-bottom: 1px solid #eee5dd;
 }
 
-#topbar-logo {
-    width: 70px;
-    height: auto;
-    display: block;
+.topbar-logo {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #e86f00;
+    font-style: italic;
+}
+
+.feed-topbar h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--color-text);
+    flex: 1;
 }
 
 /* sidebar */
@@ -53,6 +71,8 @@ body.modal-open {
     height: auto;
     display: block;
 }
+
+
 
 .sidebar-nav {
     display: flex;
@@ -89,6 +109,8 @@ body.modal-open {
 
 .nav-link.active {
     color: #c86412;
+    background-color: var(--color-bg);
+    border-radius: 8%;
     border-left-color: #f57c00;
     font-weight: 600;
 }
@@ -506,9 +528,12 @@ body.modal-open {
         gap: 20px;
     }
 
-    .sidebar-brand img {
-        width: 185px;
-    }
+    
+.sidebar-brand img {
+    width: 220px;
+    height: auto;
+    display: block;
+}
 
     .sidebar-nav {
         flex-direction: row;
