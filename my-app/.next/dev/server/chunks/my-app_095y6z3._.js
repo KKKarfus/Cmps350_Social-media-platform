@@ -302,7 +302,8 @@ async function GET(request) {
     try {
         const { searchParams } = new URL(request.url);
         const userId = searchParams.get("userId");
-        const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$my$2d$app$2f$repos$2f$posts$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getFeedPosts"])(userId);
+        const authorId = searchParams.get("authorId");
+        const data = authorId ? await (0, __TURBOPACK__imported__module__$5b$project$5d2f$my$2d$app$2f$repos$2f$posts$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getPostsByUser"])(authorId) : await (0, __TURBOPACK__imported__module__$5b$project$5d2f$my$2d$app$2f$repos$2f$posts$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getFeedPosts"])(userId);
         return Response.json(data);
     } catch (e) {
         return Response.json({

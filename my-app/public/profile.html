@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUGeeks | Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://kit.fontawesome.com/803ffdcfd8.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+
+<body>
+    <header class="profile-topbar">
+        <span class="topbar-logo">QUGeeks</span>
+    </header>
+
+     
+    <aside class="sidebar">
+            <div class="sidebar-brand">
+                <img src="assets/images/feed-sidebar-logo.png" alt="feed-sidebar-logo">
+            </div>
+
+            <nav class="sidebar-nav">
+            <a href="feed.html" class="nav-link "><i class="fa-regular fa-house"></i>Home</a>
+             <a href="explore.html" class="nav-link"><i class="fa-regular fa-compass"></i>Explore</a>
+             <a href="trending.html" class="nav-link"><i class="fa-solid fa-fire"></i>Popular</a>
+         <a href="profile.html" class="nav-link active"><i class="fa-regular fa-circle-user"></i>Profile</a>
+             <button id="logout-btn" class="nav-link" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button>
+        </nav>
+        </aside>
+
+    <main class="profile-main">
+        
+
+        <div class="profile-content">
+
+            <section class="profile-header">
+                <div class="avatar-circle" id="profile-avatar"></div>
+                <div class="profile-details">
+                    <div class="profile-top">
+                        <h1 id="profile-username"></h1>
+                        <div class="buttons">
+                            <button id="edit-profile-btn" class="btn-outline">Edit Profile</button>
+                            <button id="follow-btn" class="btn-primary">Follow</button>
+                        </div>
+                    </div>
+                    <p id="profile-bio" class="profile-bio"></p>
+                    <hr class="divider">
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span id="posts-count">0</span>
+                            <label>Posts</label>
+                        </div>
+                        <div class="stat">
+                            <span id="following-count">0</span>
+                            <label>Following</label>
+                        </div>
+                        <div class="stat">
+                            <span id="followers-count">0</span>
+                            <label>Followers</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="profile-posts">
+                <h2>Posts</h2>
+                <div id="profile-posts-container"></div>
+            </section>
+
+            
+            <div id="edit-modal" class="modal-overlay hidden">
+                <div class="modal">
+                    <div class="modal-header">
+                        <h2>Edit Profile</h2>
+                        <button id="close-edit-modal" class="btn-close">✕</button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="edit-username">Username</label>
+                        <input type="text" id="edit-username" placeholder="Username">
+                        <label for="edit-bio">Bio</label>
+                        <textarea id="edit-bio" placeholder="Tell us about yourself..."></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="save-profile-btn" class="btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+
+           
+            <div id="post-modal" class="post-modal" hidden>
+                <div id="post-modal-overlay" class="post-modal-overlay"></div>
+                <section class="post-modal-card" aria-modal="true" role="dialog">
+                    <button id="close-post-modal" class="close-post-modal" type="button">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    <div class="post-modal-header">
+                        <div id="modal-post-avatar" class="post-avatar"></div>
+                        <div class="post-meta">
+                            <p id="modal-post-username" class="post-username"></p>
+                            <p id="modal-post-date" class="post-date"></p>
+                        </div>
+                    </div>
+                    <p id="post-modal-title" class="post-modal-content"></p>
+                    <hr class="post-divider">
+                    <div id="modal-comments" class="modal-comments"></div>
+                    <form id="comment-form" class="comment-form" novalidate>
+                        <p id="comment-error" class="form-error"></p>
+                        <div class="comment-form-row">
+                            <textarea id="comment-content" rows="3"
+                                placeholder="Add to the archive..."></textarea>
+                            <button type="submit" class="post-btn">Submit</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/feed.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+
+</html>

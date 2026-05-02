@@ -6,7 +6,7 @@ type AppRouteHandlerRoutes = "/api/posts" | "/api/posts/[id]" | "/api/posts/[id]
 type PageRoutes = never
 type LayoutRoutes = never
 type RedirectRoutes = never
-type RewriteRoutes = never
+type RewriteRoutes = "/explore" | "/feed" | "/login" | "/profile" | "/register" | "/trending"
 type Routes = AppRoutes | PageRoutes | LayoutRoutes | RedirectRoutes | RewriteRoutes | AppRouteHandlerRoutes
 
 
@@ -20,6 +20,12 @@ interface ParamMap {
   "/api/users/[id]/follow": { "id": string; }
   "/api/users/[id]/followers": { "id": string; }
   "/api/users/[id]/following": { "id": string; }
+  "/explore": {}
+  "/feed": {}
+  "/login": {}
+  "/profile": {}
+  "/register": {}
+  "/trending": {}
 }
 
 

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUGeeks | Popular</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+   <script src="https://kit.fontawesome.com/803ffdcfd8.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/trending.css">
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/trending.js" defer></script>
+</head>
+
+<body>
+    <header class="trending-topbar">
+        <span class="topbar-logo">QUGeeks</span>
+    </header>
+    <aside class="sidebar">
+            <div class="sidebar-brand">
+                <img src="assets/images/feed-sidebar-logo.png" alt="feed-sidebar-logo">
+            </div>
+
+            <nav class="sidebar-nav">
+            <a href="feed.html" class="nav-link "><i class="fa-regular fa-house"></i>Home</a>
+             <a href="explore.html" class="nav-link"><i class="fa-regular fa-compass"></i>Explore</a>
+             <a href="trending.html" class="nav-link active"><i class="fa-solid fa-fire"></i>Popular</a>
+         <a href="profile.html" class="nav-link"><i class="fa-regular fa-circle-user"></i>Profile</a>
+             <button id="logout-btn" class="nav-link" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button>
+        </nav>
+        </aside>
+    <div class="trending-layout">
+        
+
+        
+
+    <main class="trending-main">
+        
+
+        <section class="trending-content">
+            <div class="trending-header">
+                <h1 class="trending-title">
+                    <span class="trending-icon-title">🔥</span>
+                    Popular &amp; <span class="highlight">Trending</span>
+                </h1>
+                <p class="trending-description">
+                    The most-followed members of the QUGeeks community,
+                    ranked by their follower count.
+                </p>
+            </div>
+
+            <div id="trending-list" class="trending-list"></div>
+        </section>
+    </main>
+</body>
+
+</html>

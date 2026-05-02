@@ -1,6 +1,31 @@
 self.__BUILD_MANIFEST = {
   "__rewrites": {
-    "afterFiles": [],
+    "afterFiles": [
+      {
+        "source": "/feed",
+        "destination": "/feed.html"
+      },
+      {
+        "source": "/profile",
+        "destination": "/profile.html"
+      },
+      {
+        "source": "/explore",
+        "destination": "/explore.html"
+      },
+      {
+        "source": "/trending",
+        "destination": "/trending.html"
+      },
+      {
+        "source": "/register",
+        "destination": "/register.html"
+      },
+      {
+        "source": "/login",
+        "destination": "/login.html"
+      }
+    ],
     "beforeFiles": [],
     "fallback": []
   },

@@ -1,7 +1,2 @@
-{"timestamp":"00:00:01.112","source":"Server","level":"LOG","message":""}
-{"timestamp":"00:00:05.116","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:00:05.142","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:00:27.634","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:00:30.213","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:00:33.190","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:02:21.963","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:00.619","source":"Server","level":"ERROR","message":"(node:31599) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/abdelrahmanabushahba/Downloads/Cmps350/Cmps350_Social-media-platform/my-app/next.config.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /Users/abdelrahmanabushahba/Downloads/Cmps350/Cmps350_Social-media-platform/my-app/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)"}
+{"timestamp":"00:00:01.218","source":"Server","level":"LOG","message":""}
