@@ -2,28 +2,18 @@ function redirectTo(page) {
     window.location.href = page;
 }
 
+let currentUser = null;
+let feedPosts = [];
 let activePostId = null;
+let activePost = null;
 
-function getCurrentUser() {
-    const session = getSession();
-    if (!session) {
-        return null;
-    }
-    return getUserById(session.userId);
-}
-
-function protectFeedPage() {
-    const currentUser = getCurrentUser();
-    if (!currentUser) {
-        redirectTo("index.html");
-    }
-}
-
-function setComposerAvatar() {
-    const avatarElement = document.getElementById("composer-avatar");
-    const currentUser = getCurrentUser();
-    if (!avatarElement || !currentUser) return;
-    avatarElement.textContent = getInitials(currentUser.username);
+function escapeHtml(text) {
+    return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
 }
 
 function showPostError(message) {
@@ -46,37 +36,104 @@ function clearCommentError() {
     showCommentError("");
 }
 
-// 
-function escapeHtml(text) {
-    return String(text)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#39;");
+// ---------- API helpers ----------
+
+async function apiFetchCurrentUser() {
+    const session = getSession();
+    if (!session) return null;
+    try {
+        const res = await fetch("/api/users/" + session.userId);
+        if (!res.ok) return null;
+        return await res.json();
+    } catch (err) {
+        return null;
+    }
 }
 
-function getVisiblePosts() {
-    const currentUser = getCurrentUser();
-    const posts = getPosts();
-    const visiblePosts = posts.filter(function (post) {
-        return (
-            post.authorId === currentUser.id ||
-            currentUser.following.includes(post.authorId)
-        );
+async function apiFetchFeed(userId) {
+    const res = await fetch("/api/posts?userId=" + encodeURIComponent(userId));
+    if (!res.ok) throw new Error("Failed to load feed");
+    return res.json();
+}
+
+async function apiFetchPost(postId) {
+    const res = await fetch("/api/posts/" + postId);
+    if (!res.ok) return null;
+    return res.json();
+}
+
+async function apiCreatePost(authorId, content) {
+    const res = await fetch("/api/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ authorId, content })
     });
-    visiblePosts.sort(function (a, b) {
-        return new Date(b.createdAt) - new Date(a.createdAt);
+    if (!res.ok) throw new Error("Failed to create post");
+    return res.json();
+}
+
+async function apiDeletePost(postId, authorId) {
+    const res = await fetch("/api/posts/" + postId, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ authorId })
     });
-    return visiblePosts;
+    if (!res.ok) throw new Error("Failed to delete post");
+    return res.json();
+}
+
+async function apiToggleLike(postId, userId) {
+    const res = await fetch("/api/posts/" + postId + "/like", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId })
+    });
+    if (!res.ok) throw new Error("Failed to toggle like");
+    return res.json();
+}
+
+async function apiAddComment(postId, authorId, content) {
+    const res = await fetch("/api/posts/" + postId + "/comments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ authorId, content })
+    });
+    if (!res.ok) throw new Error("Failed to add comment");
+    return res.json();
+}
+
+// ---------- Rendering ----------
+
+function setComposerAvatar() {
+    const avatarElement = document.getElementById("composer-avatar");
+    if (!avatarElement || !currentUser) return;
+    avatarElement.textContent = getInitials(currentUser.username);
+}
+
+function getLikeCount(post) {
+    if (post._count && typeof post._count.likes === "number") return post._count.likes;
+    return Array.isArray(post.likes) ? post.likes.length : 0;
+}
+
+function getCommentCount(post) {
+    if (post._count && typeof post._count.comments === "number") return post._count.comments;
+    return Array.isArray(post.comments) ? post.comments.length : 0;
+}
+
+function hasUserLiked(post, userId) {
+    if (!Array.isArray(post.likes)) return false;
+    return post.likes.some(function (like) {
+        return like.userId === userId;
+    });
 }
 
 function createPostCard(post) {
-    const author = getUserById(post.authorId);
-    const currentUser = getCurrentUser();
+    const author = post.author;
     if (!author || !currentUser) return "";
     const isOwnPost = post.authorId === currentUser.id;
-    const hasLiked = post.likes.includes(currentUser.id);
+    const hasLiked = hasUserLiked(post, currentUser.id);
+    const likeCount = getLikeCount(post);
+    const commentCount = getCommentCount(post);
 
     return `
         <article class="post-card" data-post-id="${post.id}" data-open-post-id="${post.id}">
@@ -97,10 +154,10 @@ function createPostCard(post) {
             <div class="post-footer">
                 <div class="post-actions">
                     <button class="post-action-btn ${hasLiked ? "liked" : ""}" type="button" data-like-id="${post.id}" aria-pressed="${hasLiked}">
-                        <i class="${hasLiked ? "fa-solid" : "fa-regular"} fa-heart"></i> ${post.likes.length}
+                        <i class="${hasLiked ? "fa-solid" : "fa-regular"} fa-heart"></i> ${likeCount}
                     </button>
                     <button class="post-action-btn" type="button" data-comment-open-id="${post.id}">
-                        <i class="fa-regular fa-comment"></i> ${post.comments.length}
+                        <i class="fa-regular fa-comment"></i> ${commentCount}
                     </button>
                 </div>
                 ${isOwnPost
@@ -116,14 +173,8 @@ function createPostCard(post) {
     `;
 }
 
-function getPostById(postId) {
-    return getPosts().find(function (post) {
-        return post.id === postId;
-    }) || null;
-}
-
 function createCommentItem(comment) {
-    const author = getUserById(comment.authorId);
+    const author = comment.author;
     if (!author) return "";
 
     return `
@@ -140,25 +191,23 @@ function createCommentItem(comment) {
     `;
 }
 
-function renderPostModal(postId) {
-    const post = getPostById(postId);
-    const author = post ? getUserById(post.authorId) : null;
+function renderPostModal(post) {
     const modal = document.getElementById("post-modal");
     const avatar = document.getElementById("modal-post-avatar");
     const username = document.getElementById("modal-post-username");
     const date = document.getElementById("modal-post-date");
     const content = document.getElementById("post-modal-title");
     const commentsContainer = document.getElementById("modal-comments");
-    if (!modal || !post || !author || !avatar || !username || !date || !content || !commentsContainer) {
+    if (!modal || !post || !post.author || !avatar || !username || !date || !content || !commentsContainer) {
         return;
     }
 
-    avatar.textContent = getInitials(author.username);
-    username.textContent = author.username;
+    avatar.textContent = getInitials(post.author.username);
+    username.textContent = post.author.username;
     date.textContent = formatDate(post.createdAt);
     content.textContent = post.content;
 
-    if (post.comments.length === 0) {
+    if (!post.comments || post.comments.length === 0) {
         commentsContainer.innerHTML = `
             <p class="modal-empty-comments">No comments yet. Start the discussion.</p>
         `;
@@ -167,13 +216,17 @@ function renderPostModal(postId) {
     }
 }
 
-function openPostModal(postId) {
+async function openPostModal(postId) {
     const modal = document.getElementById("post-modal");
     const commentInput = document.getElementById("comment-content");
-    if (!modal || !getPostById(postId)) return;
+    if (!modal) return;
+
+    const post = await apiFetchPost(postId);
+    if (!post) return;
 
     activePostId = postId;
-    renderPostModal(postId);
+    activePost = post;
+    renderPostModal(post);
     clearCommentError();
     modal.hidden = false;
     document.body.classList.add("modal-open");
@@ -190,15 +243,26 @@ function closePostModal() {
 
     modal.hidden = true;
     activePostId = null;
+    activePost = null;
     clearCommentError();
     document.body.classList.remove("modal-open");
+}
+
+async function refreshFeed() {
+    if (!currentUser) return;
+    try {
+        feedPosts = await apiFetchFeed(currentUser.id);
+    } catch (err) {
+        feedPosts = [];
+    }
+    renderPosts();
+    document.dispatchEvent(new CustomEvent("posts-changed"));
 }
 
 function renderPosts() {
     const postsContainer = document.getElementById("posts-container");
     if (!postsContainer) return;
-    const visiblePosts = getVisiblePosts();
-    if (visiblePosts.length === 0) {
+    if (!feedPosts || feedPosts.length === 0) {
         postsContainer.innerHTML = `
             <article class="post-card">
                 <p class="post-content">
@@ -208,13 +272,14 @@ function renderPosts() {
         `;
         return;
     }
-    postsContainer.innerHTML = visiblePosts.map(createPostCard).join("");
+    postsContainer.innerHTML = feedPosts.map(createPostCard).join("");
 }
 
-function handleCreatePost(event) {
+// ---------- Event handlers ----------
+
+async function handleCreatePost(event) {
     event.preventDefault();
     const input = document.getElementById("post-content");
-    const currentUser = getCurrentUser();
     if (!input || !currentUser) return;
     const content = input.value.trim();
     clearPostError();
@@ -222,27 +287,18 @@ function handleCreatePost(event) {
         showPostError("Post cannot be empty.");
         return;
     }
-    const posts = getPosts();
-
-    const newPost = {
-        id: generateId("p"),
-        authorId: currentUser.id,
-        content: content,
-        likes: [],
-        comments: [],
-        createdAt: new Date().toISOString()
-    };
-    posts.push(newPost);
-    savePosts(posts);
-    input.value = "";
-    renderPosts();
+    try {
+        await apiCreatePost(currentUser.id, content);
+        input.value = "";
+        await refreshFeed();
+    } catch (err) {
+        showPostError("Could not publish your post. Try again.");
+    }
 }
 
-function handleCreateComment(event) {
+async function handleCreateComment(event) {
     event.preventDefault();
-    const currentUser = getCurrentUser();
     const input = document.getElementById("comment-content");
-    const posts = getPosts();
     if (!currentUser || !input || !activePostId) return;
     const content = input.value.trim();
     clearCommentError();
@@ -252,75 +308,39 @@ function handleCreateComment(event) {
         return;
     }
 
-    const updatedPosts = posts.map(function (post) {
-        if (post.id !== activePostId) {
-            return post;
+    try {
+        await apiAddComment(activePostId, currentUser.id, content);
+        input.value = "";
+
+        const fresh = await apiFetchPost(activePostId);
+        if (fresh) {
+            activePost = fresh;
+            renderPostModal(fresh);
         }
-
-        return {
-            ...post,
-            comments: post.comments.concat({
-                id: generateId("c"),
-                authorId: currentUser.id,
-                content: content,
-                createdAt: new Date().toISOString()
-            })
-        };
-    });
-
-    savePosts(updatedPosts);
-    input.value = "";
-    renderPosts();
-    renderPostModal(activePostId);
-}
-
-function deletePost(postId) {
-    const currentUser = getCurrentUser();
-    const posts = getPosts();
-    if (!currentUser) return;
-
-    const postToDelete = posts.find(function (post) {
-        return post.id === postId;
-    });
-
-    if (!postToDelete) return;
-
-    if (postToDelete.authorId !== currentUser.id) {
-        return;
+        await refreshFeed();
+    } catch (err) {
+        showCommentError("Could not post your comment. Try again.");
     }
-
-    const updatedPosts = posts.filter(function (post) {
-        return post.id !== postId;
-    });
-
-    savePosts(updatedPosts);
-    renderPosts();
 }
 
-function toggleLike(postId) {
-    const currentUser = getCurrentUser();
-    const posts = getPosts();
+async function deletePost(postId) {
     if (!currentUser) return;
+    try {
+        await apiDeletePost(postId, currentUser.id);
+        await refreshFeed();
+    } catch (err) {
+        // silently fail; feed will reflect state on next refresh
+    }
+}
 
-    const updatedPosts = posts.map(function (post) {
-        if (post.id !== postId) {
-            return post;
-        }
-
-        const hasLiked = post.likes.includes(currentUser.id);
-
-        return {
-            ...post,
-            likes: hasLiked
-                ? post.likes.filter(function (userId) {
-                    return userId !== currentUser.id;
-                })
-                : post.likes.concat(currentUser.id)
-        };
-    });
-
-    savePosts(updatedPosts);
-    renderPosts();
+async function toggleLike(postId) {
+    if (!currentUser) return;
+    try {
+        await apiToggleLike(postId, currentUser.id);
+        await refreshFeed();
+    } catch (err) {
+        // silently fail
+    }
 }
 
 function handlePostsClick(event) {
@@ -354,21 +374,28 @@ function handleLogout() {
     redirectTo("index.html");
 }
 
-// closes the model using ESC
 function handleDocumentKeydown(event) {
     if (event.key === "Escape") {
         closePostModal();
     }
 }
-document.addEventListener("DOMContentLoaded", () => {
-    if (document.getElementById("post-form")) {
-        initializeFeed();
+
+async function initializeFeed() {
+    const session = getSession();
+    if (!session) {
+        redirectTo("index.html");
+        return;
     }
-});
-function initializeFeed() {
-    protectFeedPage();
+
+    currentUser = await apiFetchCurrentUser();
+    if (!currentUser) {
+        clearSession();
+        redirectTo("index.html");
+        return;
+    }
+
     setComposerAvatar();
-    renderPosts();
+    await refreshFeed();
 
     const form = document.getElementById("post-form");
     const commentForm = document.getElementById("comment-form");
@@ -404,4 +431,8 @@ function initializeFeed() {
     document.addEventListener("keydown", handleDocumentKeydown);
 }
 
-
+document.addEventListener("DOMContentLoaded", () => {
+    if (document.getElementById("post-form")) {
+        initializeFeed();
+    }
+});

@@ -1,11 +1,14 @@
-import { getFeedPosts, createPost } from "../../../repos/posts.js";
+import { getFeedPosts, createPost, getPostsByUser } from "../../../repos/posts.js";
 
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get("userId");
-    
-    const data = await getFeedPosts(userId);
+    const authorId = searchParams.get("authorId");
+
+    const data = authorId
+      ? await getPostsByUser(authorId)
+      : await getFeedPosts(userId);
 
     return Response.json(data);
   } catch (e) {
