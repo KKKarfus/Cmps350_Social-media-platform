@@ -329,7 +329,7 @@ const routeModule = new __TURBOPACK__imported__module__$5b$project$5d2f$my$2d$ap
     userland: {
         loaderTree: tree
     },
-    distDir: ("TURBOPACK compile-time value", ".next/dev") || '',
+    distDir: ("TURBOPACK compile-time value", ".next\\dev") || '',
     relativeProjectDir: ("TURBOPACK compile-time value", "") || ''
 });
 function buildDynamicSegmentPlaceholder(param) {
