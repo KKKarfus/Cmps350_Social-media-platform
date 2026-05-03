@@ -5,7 +5,6 @@
     "": {
       "name": "my-app",
       "dependencies": {
-        "@libsql/darwin-arm64": "^0.5.29",
         "@prisma/adapter-libsql": "^7.8.0",
         "@prisma/client": "6.7.0",
         "next": "^16.2.4",
