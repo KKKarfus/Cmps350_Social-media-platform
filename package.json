@@ -22,7 +22,8 @@
     "db:studio": "prisma studio",
     "dev": "next dev --turbopack=false",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "postinstall": "prisma generate"
   },
   "prisma": {
     "seed": "bun prisma/seed.js"
