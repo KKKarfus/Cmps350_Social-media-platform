@@ -9,7 +9,6 @@ const adapter = new PrismaLibSql({
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  await prisma.repost.deleteMany();
   await prisma.like.deleteMany();
   await prisma.comment.deleteMany();
   await prisma.follow.deleteMany();
@@ -754,36 +753,6 @@ async function main() {
     ],
   });
 
-  await prisma.repost.createMany({
-    data: [
-      { postId: posts.designSystems.id, userId: users.hussain.id },
-      { postId: posts.designSystems.id, userId: users.yousef.id },
-      { postId: posts.aiEthics.id, userId: users.labib.id },
-      { postId: posts.security.id, userId: users.khalid.id },
-      { postId: posts.prismaMigration.id, userId: users.hamad.id },
-      { postId: posts.repositories.id, userId: users.nasser.id },
-      { postId: posts.accessibility.id, userId: users.layla.id },
-      { postId: posts.analytics.id, userId: users.faisal.id },
-      { postId: posts.secureCoding.id, userId: users.noora.id },
-      { postId: posts.mobileApi.id, userId: users.ali.id },
-      { postId: posts.community.id, userId: users.joud.id },
-      { postId: posts.caching.id, userId: users.rashid.id },
-      { postId: posts.modelEvaluation.id, userId: users.lina.id },
-      { postId: posts.networkMonitoring.id, userId: users.salem.id },
-      { postId: posts.testing.id, userId: users.hessa.id },
-      { postId: posts.statistics.id, userId: users.tariq.id },
-      { postId: posts.indexing.id, userId: users.khalid.id },
-      { postId: posts.classDemo.id, userId: users.omar.id },
-      { postId: posts.authSecurity.id, userId: users.mariam.id },
-      { postId: posts.visualDesign.id, userId: users.maha.id },
-      { postId: posts.optimization.id, userId: users.dana.id },
-      { postId: posts.iotSecurity.id, userId: users.ahmed.id },
-      { postId: posts.hciResearch.id, userId: users.layla.id },
-      { postId: posts.backendContracts.id, userId: users.rashid.id },
-      { postId: posts.dataPrivacy.id, userId: users.mariam.id },
-      { postId: posts.wordStats.id, userId: users.faisal.id },
-    ],
-  });
 }
 
 main()

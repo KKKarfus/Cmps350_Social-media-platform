@@ -5,6 +5,7 @@
     "": {
       "name": "cmps350_social-media-platform",
       "dependencies": {
+        "@libsql/win32-x64-msvc": "^0.5.29",
         "@prisma/adapter-libsql": "^7.8.0",
         "@prisma/client": "^7.8.0",
       },

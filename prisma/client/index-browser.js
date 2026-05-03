@@ -155,13 +155,6 @@ exports.Prisma.FollowScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.RepostScalarFieldEnum = {
-  id: 'id',
-  postId: 'postId',
-  userId: 'userId',
-  createdAt: 'createdAt'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -173,8 +166,7 @@ exports.Prisma.ModelName = {
   Post: 'Post',
   Comment: 'Comment',
   Like: 'Like',
-  Follow: 'Follow',
-  Repost: 'Repost'
+  Follow: 'Follow'
 };
 
 /**

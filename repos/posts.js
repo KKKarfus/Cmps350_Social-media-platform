@@ -33,12 +33,10 @@ export async function getFeedPosts(userId) {
         },
       },
       likes: true,
-      reposts: true,
       _count: {
         select: {
           comments: true,
           likes: true,
-          reposts: true,
         },
       },
     },
@@ -61,12 +59,10 @@ export async function getPostById(postId) {
         },
       },
       likes: true,
-      reposts: true,
       _count: {
         select: {
           comments: true,
           likes: true,
-          reposts: true,
         },
       },
     },
@@ -92,12 +88,10 @@ export async function getPostsByUser(userId) {
           author: true,
         },
       },
-      reposts: true,
       _count: {
         select: {
           comments: true,
           likes: true,
-          reposts: true,
         },
       },
     },
@@ -178,26 +172,6 @@ export async function toggleLike(postId, userId) {
   return { liked: true };
 }
 
-export async function repostPost(postId, userId) {
-  return prisma.repost.create({
-    data: {
-      postId,
-      userId,
-    },
-  });
-}
-
-export async function removeRepost(postId, userId) {
-  return prisma.repost.delete({
-    where: {
-      postId_userId: {
-        postId,
-        userId,
-      },
-    },
-  });
-}
-
 export async function getMostLikedPosts(limit = 10) {
   return prisma.post.findMany({
     take: limit,
@@ -207,7 +181,6 @@ export async function getMostLikedPosts(limit = 10) {
         select: {
           likes: true,
           comments: true,
-          reposts: true,
         },
       },
     },

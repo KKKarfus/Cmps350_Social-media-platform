@@ -23,7 +23,6 @@ model User {
   posts    Post[]
   comments Comment[]
   likes    Like[]
-  reposts  Repost[]
 
   following Follow[] @relation("UserFollowing")
   followers Follow[] @relation("UserFollowers")
@@ -38,7 +37,6 @@ model Post {
   author   User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   comments Comment[]
   likes    Like[]
-  reposts  Repost[]
 
   @@index([authorId])
   @@index([createdAt])
@@ -82,17 +80,4 @@ model Follow {
 
   @@unique([followerId, followingId])
   @@index([followingId])
-}
-
-model Repost {
-  id        String   @id @default(cuid(2))
-  postId    String
-  userId    String
-  createdAt DateTime @default(now())
-
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([postId, userId])
-  @@index([userId])
 }
