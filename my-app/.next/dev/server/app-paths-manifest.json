@@ -1,8 +1,8 @@
 {
+  "/api/posts/[id]/comments/route": "app/api/posts/[id]/comments/route.js",
+  "/api/posts/[id]/like/route": "app/api/posts/[id]/like/route.js",
+  "/api/posts/[id]/route": "app/api/posts/[id]/route.js",
   "/api/posts/route": "app/api/posts/route.js",
-  "/api/stats/route": "app/api/stats/route.js",
-  "/api/users/[id]/following/route": "app/api/users/[id]/following/route.js",
   "/api/users/[id]/route": "app/api/users/[id]/route.js",
-  "/api/users/route": "app/api/users/route.js",
-  "/stats/page": "app/stats/page.js"
+  "/api/users/route": "app/api/users/route.js"
 }

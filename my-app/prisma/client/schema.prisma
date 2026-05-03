@@ -1,10 +1,11 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
 generator client {
-  provider        = "prisma-client-js"
-  output          = "./client"
-  previewFeatures = ["driverAdapters"]
+  provider = "prisma-client-js"
+  output   = "./client"
 }
 
 datasource db {
@@ -23,7 +24,6 @@ model User {
   posts    Post[]
   comments Comment[]
   likes    Like[]
-  reposts  Repost[]
 
   following Follow[] @relation("UserFollowing")
   followers Follow[] @relation("UserFollowers")
@@ -38,7 +38,6 @@ model Post {
   author   User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   comments Comment[]
   likes    Like[]
-  reposts  Repost[]
 
   @@index([authorId])
   @@index([createdAt])
@@ -82,17 +81,4 @@ model Follow {
 
   @@unique([followerId, followingId])
   @@index([followingId])
-}
-
-model Repost {
-  id        String   @id @default(cuid(2))
-  postId    String
-  userId    String
-  createdAt DateTime @default(now())
-
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([postId, userId])
-  @@index([userId])
 }
