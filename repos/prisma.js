@@ -4,7 +4,8 @@ import { PrismaLibSql } from "@prisma/adapter-libsql";
 const globalForPrisma = globalThis;
 
 const adapter = new PrismaLibSql({
-  url: "file:/Users/abdelrahmanabushahba/Downloads/Cmps350/Cmps350_Social-media-platform/prisma/db/dev.db",
+  url: process.env.DATABASE_URL,
+  authToken: process.env.TURSO_AUTH_TOKEN,
 });
 
 export const prisma =
