@@ -23,7 +23,7 @@
     "dev": "next dev --turbopack=false",
     "build": "next build",
     "start": "next start",
-    "postinstall": "prisma generate"
+     "postinstall": "prisma generate --schema prisma/schema.prisma"
   },
   "prisma": {
     "seed": "bun prisma/seed.js"
